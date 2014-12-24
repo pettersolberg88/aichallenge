@@ -6,7 +6,8 @@
 * Install git and a few of your favorite admin tools
 * Create the `contest` user
     For Ubuntu: `sudo useradd -d /home/contest -m -s /bin/bash contest`
-* Switch to contest user: `sudo su contest; cd ~`
+    Add contest to sudo group: `sudo usermod -a -G sudo contest`
+* Switch to contest user: `sudo su contest`
 * `git clone` the repository inside
 * Initialize the git submodules. `git submodule init; git submodule update`
 * `sudo python setup/server_setup.py`
