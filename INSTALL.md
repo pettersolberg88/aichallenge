@@ -4,6 +4,7 @@
 * Update apt-get ```sudo apt-get update```
 * Install locales ```sudo apt-get install language-pack-en```
 * Install git and a few of your favorite admin tools
+* Prep MySql (you'll likely get errors without) `sudo mysql_upgrade --force`
 * Create the `contest` user
     For Ubuntu: `sudo useradd -d /home/contest -m -s /bin/bash contest`
     Add contest to sudo group: `sudo usermod -a -G sudo contest`
