@@ -17,8 +17,8 @@ def create_test_data(user_count=10000, map_count=1000, game_count=30000, matchup
     # create loads of users
     for i in range(user_count):
         cursor.execute("""
-        insert into user
-        values (null,'TestUser%s','$6$rounds=54321$hQd}`.j1e#X&PuN*$D8.wbEp6vwwLoC27GpiGVOFediuAWaGTQ2MPHD64i/bVGxtj0XNeRJeJRKVgDC/uTh.W2m5YoaoA6To1cJ7ZF/',
+        insert into user (username, password, email, status_id, activation_code, org_id, bio, country_id, created, activated, admin)
+        values ('TestUser%s','$6$rounds=54321$hQd}`.j1e#X&PuN*$D8.wbEp6vwwLoC27GpiGVOFediuAWaGTQ2MPHD64i/bVGxtj0XNeRJeJRKVgDC/uTh.W2m5YoaoA6To1cJ7ZF/',
         'TestUser%s@ai-contest.com',1,'7b3f9842775fa9c9d489a3714e857580',0,'Test Account',11,current_timestamp(),0,0);
         """ % (i, i))
     connection.commit()        
