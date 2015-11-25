@@ -209,7 +209,7 @@ def setup_base_chroot(options):
         run_cmd("schroot -c aic-base -- /bin/sh -c \"\
                 DEBIANFRONTEND=noninteractive;\
                 apt-get update\"")
-        run_cmd("schroot -c aic-base -- apt-get install -y python")
+        run_cmd("schroot -c aic-base -- apt-get install -y python python3.2")
     run_cmd("schroot -c aic-base -- %s/setup/worker_setup.py --chroot-base"
             % (os.path.join(options.root_dir, options.local_repo),))
 
