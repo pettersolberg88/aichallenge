@@ -142,14 +142,14 @@ def install_all_languages(options):
 
     install_clojure(download_base)
     #install_dart(download_base)
-    install_dmd(download_base)
-    install_golang(download_base)
-    install_groovy(download_base)
-    install_nodejs(download_base)
-    install_coffeescript(download_base) # must come after nodejs
-    install_pypy(download_base)
-    install_racket(download_base)
-    install_scala(download_base)
+    #install_dmd(download_base)
+    #install_golang(download_base)
+    #install_groovy(download_base)
+    #install_nodejs(download_base)
+    #install_coffeescript(download_base) # must come after nodejs
+    #install_pypy(download_base)
+    #install_racket(download_base)
+    #install_scala(download_base)
 
 def install_jailguard(options):
     worker_dir = os.path.join(options.local_repo, "worker")
