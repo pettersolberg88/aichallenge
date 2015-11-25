@@ -1,9 +1,11 @@
 #!/usr/bin/env python
-
+import sys
 import MySQLdb
 import random
+
+sys.path.append("../manager")
 from server_info import server_info
-import sys
+
 
 if len(sys.argv) != 2:
   print "USAGE: python create_accounts.py num_accounts"
@@ -19,13 +21,13 @@ for i in range(1, n + 1):
   country_id = str(random.randint(0, 20))
   org_id = str(random.randint(0, 20))
   cursor.execute("""
-    INSERT INTO users
+    INSERT INTO user
     (username,password,email,status_id,activation_code,org_id,bio,country_id,
-      created,theme_id,activated,admin)
+      created,activated,admin)
     VALUES ('""" + username + """','no password','donotsend',1,'',
       """ + org_id + """,
       'I am a test bot controlled by the contest staff. Just ignore me!',
-      """ + country_id + """,CURRENT_TIMESTAMP,NULL,1,0)
+      """ + country_id + """,CURRENT_TIMESTAMP,1,0)
   """)
 cursor.close()
 connection.close()
