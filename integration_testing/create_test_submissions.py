@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 import MySQLdb
 import os
-import random
-from server_info import server_info
 import sys
+import random
+
+sys.path.append("../manager")
+from server_info import server_info
 
 if len(sys.argv) != 2:
   print "USAGE: python create_test_submissions.py num_submissions"
@@ -14,7 +16,7 @@ connection = MySQLdb.connect(host = server_info["db_host"],
                              passwd = server_info["db_password"],
                              db = server_info["db_name"])
 cursor = connection.cursor(MySQLdb.cursors.DictCursor)
-query = "SELECT user_id, username FROM users WHERE username LIKE 'testbot%'"
+query = "SELECT user_id, username FROM user WHERE username LIKE 'testbot%'"
 cursor.execute(query)
 accounts = cursor.fetchall()
 if len(accounts) == 0:
