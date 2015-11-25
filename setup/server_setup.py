@@ -157,7 +157,7 @@ def setup_website(opts):
         with CD(visualizer_path):
             run_cmd("ant deploy -Djava.plugin=%s -Ddeploy.path=%s"
                     % (plugin_path, website_root))
-    setup_language_repo(opts)
+    #setup_language_repo(opts)
 
     site_config = "/etc/apache2/sites-available/" + opts.website_hostname
     if not os.path.exists(site_config):
