@@ -45,7 +45,7 @@ def main():
             for i in range(add):
                 cursor.execute("call generate_matchup")
                 cursor.nextset()
-
+		connection.commit()
 if __name__ == "__main__":
     main()
 
