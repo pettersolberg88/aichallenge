@@ -191,24 +191,24 @@ def setup_base_chroot(options):
     install_apt_packages(["debootstrap", "schroot", "unionfs-fuse", "gcc"])
     chroot_dir = "/srv/chroot"
     base_chroot_dir = os.path.join(chroot_dir, "aic-base")
-	os.makedirs(base_chroot_dir)
-	run_cmd("debootstrap --variant=buildd --arch %s precise \
-			%s %s" % (options.arch, base_chroot_dir, options.os_url))
-	with CD(TEMPLATE_DIR):
-		run_cmd("cp chroot_configs/chroot.d/aic-base /etc/schroot/chroot.d/")
-		with open("chroot_configs/sources.list.template", "r") as sl_file:
-			sources_template = sl_file.read()
-		sources_contents = sources_template.format(src_url=options.src_url)
-		chroot_filename = "%s/etc/apt/sources.list" % (base_chroot_dir,)
-		with open(chroot_filename, "w") as sources_file:
-			sources_file.write(sources_contents)
-		run_cmd("cp -r chroot_configs/ai-jail /etc/schroot/ai-jail")
-	deb_archives = "/var/cache/apt/archives/"
-	run_cmd("cp {0}*.deb {1}{0}".format(deb_archives, base_chroot_dir))
-	run_cmd("schroot -c aic-base -- /bin/sh -c \"\
-			DEBIANFRONTEND=noninteractive;\
-			apt-get update\"")
-	run_cmd("schroot -c aic-base -- apt-get install -y python python3.2")
+    os.makedirs(base_chroot_dir)
+    run_cmd("debootstrap --variant=buildd --arch %s precise \
+            %s %s" % (options.arch, base_chroot_dir, options.os_url))
+    with CD(TEMPLATE_DIR):
+        run_cmd("cp chroot_configs/chroot.d/aic-base /etc/schroot/chroot.d/")
+        with open("chroot_configs/sources.list.template", "r") as sl_file:
+            sources_template = sl_file.read()
+        sources_contents = sources_template.format(src_url=options.src_url)
+        chroot_filename = "%s/etc/apt/sources.list" % (base_chroot_dir,)
+        with open(chroot_filename, "w") as sources_file:
+            sources_file.write(sources_contents)
+        run_cmd("cp -r chroot_configs/ai-jail /etc/schroot/ai-jail")
+    deb_archives = "/var/cache/apt/archives/"
+    run_cmd("cp {0}*.deb {1}{0}".format(deb_archives, base_chroot_dir))
+    run_cmd("schroot -c aic-base -- /bin/sh -c \"\
+            DEBIANFRONTEND=noninteractive;\
+            apt-get update\"")
+    run_cmd("schroot -c aic-base -- apt-get install -y python python3.2")
     run_cmd("schroot -c aic-base -- %s/setup/worker_setup.py --chroot-base"
             % (os.path.join(options.root_dir, options.local_repo),))
 
@@ -240,35 +240,35 @@ def create_jail_group(options):
 
 def create_jail_user(username):
     """ Setup a jail user with the given username """
-	schroot_filename = os.path.join("/etc/schroot/chroot.d", username)
-	if not os.path.isfile(schroot_filename):
-		run_cmd("useradd -g jailusers -d /home/jailuser %s" % (username,))
-		# Add rule to drop any network communication from this user
-		run_cmd("iptables -A OUTPUT -m owner --uid-owner %s -j DROP" % (username,))
-		# Create user specific chroot
-		chroot_dir = "/srv/chroot"
-		jail_dir = os.path.join(chroot_dir, username)
-		os.makedirs(os.path.join(jail_dir, "scratch"))
-		os.makedirs(os.path.join(jail_dir, "root"))
-		home_dir = os.path.join(jail_dir, "home/home/jailuser")
-		os.makedirs(home_dir)
-		run_cmd("chown %s:jailusers %s" % (username, home_dir))
-		run_cmd("chown :jailkeeper %s" % (jail_dir,))
-		run_cmd("chmod g=rwx %s" % (jail_dir,))
-		fs_line = "unionfs-fuse#%s=rw:%s=ro:%s=ro %s fuse cow,allow_other,noauto 0 0" % (
-				os.path.join(jail_dir, "scratch"),
-				os.path.join(jail_dir, "home"),
-				os.path.join(chroot_dir, "aic-base"),
-				os.path.join(jail_dir, "root")
-				)
-		append_line("/etc/fstab", fs_line)
-		cfg_filename = os.path.join(TEMPLATE_DIR,
-			"chroot_configs/chroot.d/jailuser.template")
-		with open(cfg_filename, 'r') as cfg_file:
-			cfg = cfg_file.read()
-		
-		with open(schroot_filename, 'w') as schroot_file:
-			schroot_file.write(cfg.format(jailname=username))
+    schroot_filename = os.path.join("/etc/schroot/chroot.d", username)
+    if not os.path.isfile(schroot_filename):
+        run_cmd("useradd -g jailusers -d /home/jailuser %s" % (username,))
+        # Add rule to drop any network communication from this user
+        run_cmd("iptables -A OUTPUT -m owner --uid-owner %s -j DROP" % (username,))
+        # Create user specific chroot
+        chroot_dir = "/srv/chroot"
+        jail_dir = os.path.join(chroot_dir, username)
+        os.makedirs(os.path.join(jail_dir, "scratch"))
+        os.makedirs(os.path.join(jail_dir, "root"))
+        home_dir = os.path.join(jail_dir, "home/home/jailuser")
+        os.makedirs(home_dir)
+        run_cmd("chown %s:jailusers %s" % (username, home_dir))
+        run_cmd("chown :jailkeeper %s" % (jail_dir,))
+        run_cmd("chmod g=rwx %s" % (jail_dir,))
+        fs_line = "unionfs-fuse#%s=rw:%s=ro:%s=ro %s fuse cow,allow_other,noauto 0 0" % (
+                os.path.join(jail_dir, "scratch"),
+                os.path.join(jail_dir, "home"),
+                os.path.join(chroot_dir, "aic-base"),
+                os.path.join(jail_dir, "root")
+                )
+        append_line("/etc/fstab", fs_line)
+        cfg_filename = os.path.join(TEMPLATE_DIR,
+            "chroot_configs/chroot.d/jailuser.template")
+        with open(cfg_filename, 'r') as cfg_file:
+            cfg = cfg_file.read()
+        
+        with open(schroot_filename, 'w') as schroot_file:
+            schroot_file.write(cfg.format(jailname=username))
 
 IPTABLES_LOAD = """#!/bin/sh
 iptables-restore < /etc/iptables.rules
