@@ -24,4 +24,4 @@ Initializing the git submodules:
 Installation
 ---------------
 
-Follow [INSTALL.md](https://github.com/aichallenge/aichallenge/blob/epsilon/INSTALL.md).
+Follow [INSTALL.md](INSTALL.md).
