@@ -20,14 +20,7 @@ for i in range(1, n + 1):
   username = "testbot" + str(i)
   country_id = str(random.randint(0, 20))
   org_id = str(random.randint(0, 20))
-  cursor.execute("""
-    INSERT INTO user
-    (username,password,email,status_id,activation_code,org_id,bio,country_id,
-      created,activated,admin)
-    VALUES ('""" + username + """','no password','donotsend',1,'',
-      """ + org_id + """,
-      'I am a test bot controlled by the contest staff. Just ignore me!',
-      """ + country_id + """,CURRENT_TIMESTAMP,1,0)
-  """)
+  cursor.execute("""INSERT INTO user (username,password,email,status_id,activation_code,org_id,bio,country_id,created,activated,admin) VALUES ('""" + username + """','no password','donotsend',1,'',""" + org_id + """,'I am a test bot controlled by the contest staff. Just ignore me!',""" + country_id + """,CURRENT_TIMESTAMP,1,0)""")
 cursor.close()
+connection.commit()
 connection.close()

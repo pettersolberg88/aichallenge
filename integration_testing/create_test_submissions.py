@@ -25,7 +25,7 @@ if len(accounts) == 0:
   sys.exit(1);
 for i in range(n):
   account = random.choice(accounts)
-  cursor.execute("INSERT INTO submissions (user_id,status,timestamp," + \
+  cursor.execute("INSERT INTO submission (user_id,status,timestamp," + \
     "language_id) VALUES (" + str(account["user_id"]) + ",20," + \
     "CURRENT_TIMESTAMP,3)")
   submission_id = connection.insert_id()
@@ -35,4 +35,5 @@ for i in range(n):
   os.system("zip -r ../" + path + "entry.zip *.java > /dev/null 2> /dev/null")
   os.chdir("..")
 cursor.close()
+connection.commit()
 connection.close()
