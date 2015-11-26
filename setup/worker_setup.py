@@ -191,7 +191,8 @@ def setup_base_chroot(options):
     install_apt_packages(["debootstrap", "schroot", "unionfs-fuse", "gcc"])
     chroot_dir = "/srv/chroot"
     base_chroot_dir = os.path.join(chroot_dir, "aic-base")
-    os.makedirs(base_chroot_dir)
+    if not os.path.exists(base_chroot_dir):
+        os.makedirs(base_chroot_dir)
     run_cmd("debootstrap --variant=buildd --arch %s precise \
             %s %s" % (options.arch, base_chroot_dir, options.os_url))
     with CD(TEMPLATE_DIR):
