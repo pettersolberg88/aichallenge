@@ -140,7 +140,7 @@ def install_all_languages(options):
     install_basic_languages()
     install_extra_distribution_languages()
 
-    install_clojure(download_base)
+    #install_clojure(download_base)
     #install_dart(download_base)
     #install_dmd(download_base)
     #install_golang(download_base)
