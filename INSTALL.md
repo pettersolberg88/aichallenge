@@ -3,7 +3,7 @@
 * Install Ubuntu 12.04
 * Get root ```sudo bash```
 * Update apt-get ```apt-get update```
-* Install dependencies ``apt-get install -y git screen language-pack-en```
+* Install dependencies ```apt-get install -y git screen language-pack-en```
 * Add user contest ```sudo useradd -d /home/contest -m -s /bin/bash contest```
 * Give contest sudo rights ```sudo usermod -a -G sudo contest```
 * Give contest a password ```sudo passwd contest``` and enter a password
@@ -24,7 +24,7 @@
 * Install Ubuntu 12.04
 * Get root ```sudo bash```
 * Update apt-get ```apt-get update```
-* Install dependencies ``apt-get install -y git screen language-pack-en```
+* Install dependencies ```apt-get install -y git screen language-pack-en```
 * Run `curl http://example.com/api_server_setup.php | sh`
     * Worker takes about 25 minutes to install if you got the error ```E: 10mount: umount: /var/lib/schroot/mount/aic-base-a3ce96ec-01e6-42fe-bd86-19c7658f53bc/dev: device is busy.``` then run the command again
     * Worker starts processing games when done
